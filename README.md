@@ -6,7 +6,7 @@ A React app that uses the ApiFlash API to take customizable screenshots of any w
 
 ## Screenshot
 
-![App Screenshot](public/assets/windows_background.png)
+![App Screenshot](public/assets/Cap-Screenshot.png)
 
 ---
 
