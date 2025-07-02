@@ -94,7 +94,7 @@ input {
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   -webkit-text-size-adjust:100%;
-  background-image:url(public/assets/windows_background.png);
+  background-image:url(/assets/windows_background.png);
   background-size:35%;
   background-blend-mode:multiply;
 }
