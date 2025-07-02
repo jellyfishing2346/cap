@@ -2,7 +2,7 @@ const APIForm = ({ inputs, handleChange, onSubmit, inputsInfo }) => {
   return (
     <div>
       <h2>Select Your Image Attributes:</h2>
-      <form className="form-container" onSubmit={onSubmit}>
+      <form className="form-container">
         {inputs &&
           Object.entries(inputs).map(([category, value], index) => (
             <li className="form" key={index}>
@@ -20,9 +20,14 @@ const APIForm = ({ inputs, handleChange, onSubmit, inputsInfo }) => {
             </li>
           ))}
       </form>
-       <button type="submit" className="button" style={{ gridColumn: "span 1" }}>
-          Take that Pic! 🎞
-        </button>
+      <button
+        type="button"
+        className="button"
+        style={{ gridColumn: "span 1" }}
+        onClick={onSubmit}
+      >
+        Take that Pic! 📸
+      </button>
     </div>
   );
 };

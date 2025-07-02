@@ -5,6 +5,8 @@ import "./App.css";
 
 const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
 
+console.log("Loaded API key:", ACCESS_KEY);
+
 const inputsInfo = [
   "Input a link to any website you would like to take a screenshot of. Do not include https or any protocol in the URL",
   "Input which image format you would prefer for your screenshot: jpeg, png, or webp",
@@ -53,6 +55,7 @@ function App() {
     try {
       const response = await fetch(query);
       const json = await response.json();
+      console.log("API response:", json);
       if (!json.url) {
         alert("Could not take screenshot. Please check your URL and try again.");
       } else {
@@ -70,10 +73,14 @@ function App() {
     let wait_until = "network_idle";
     let response_type = "json";
     let fail_on_status = "400%2C404%2C500-511";
-    let url_starter = "https://";
-    let fullURL = url_starter + inputs.url;
-    let query = `https://api.apiflash.com/v1/urltoimage?access_key=${ACCESS_KEY}&url=${fullURL}&format=${inputs.format}&width=${inputs.width}&height=${inputs.height}&no_cookie_banners=${inputs.no_cookie_banners}&no_ads=${inputs.no_ads}&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
+    let userUrl = inputs.url.trim();
+    if (!/^https?:\/\//i.test(userUrl)) {
+      userUrl = "https://" + userUrl;
+    }
+    let fullURL = userUrl;
+    let query = `https://api.apiflash.com/v1/urltoimage?access_key=${ACCESS_KEY}&url=${fullURL}&format=${inputs.format.toLowerCase()}&width=${inputs.width}&height=${inputs.height}&no_cookie_banners=${inputs.no_cookie_banners}&no_ads=${inputs.no_ads}&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
     callAPI(query).catch(console.error);
+    console.log("Query URL:", query);
   };
 
   const submitForm = (e) => {
@@ -103,7 +110,7 @@ function App() {
       <h1>Build Your Own Screenshot! 📸</h1>
       {quota && (
         <div className="quota">
-          <strong>Quota:</strong> {quota.remaining} / {quota.limit} left
+          Remaining API calls: {quota.remaining} / {quota.limit} left
         </div>
       )}
       <APIForm
